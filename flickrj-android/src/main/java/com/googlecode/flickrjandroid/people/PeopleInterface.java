@@ -6,6 +6,7 @@ package com.googlecode.flickrjandroid.people;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -303,11 +304,15 @@ public class PeopleInterface {
      * @throws JSONException 
      */
     public PhotoList getPhotos(String userId, Set<String> extras, int perPage,
-            int page) throws IOException, FlickrException, JSONException {
+            int page, Date minUploadDate) throws IOException, FlickrException, JSONException {
         List<Parameter> parameters = new ArrayList<Parameter>();
         parameters.add(new Parameter("method", METHOD_GET_PHOTOS));
         parameters.add(new Parameter(OAuthInterface.PARAM_OAUTH_CONSUMER_KEY, apiKey));
         parameters.add(new Parameter("user_id", userId));
+
+	if (minUploadDate != null) {
+            parameters.add(new Parameter("min_upload_date", minUploadDate.getTime() / 1000L));
+        }
 
         if (perPage > 0) {
             parameters.add(new Parameter("per_page", "" + perPage));
