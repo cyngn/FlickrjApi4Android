@@ -5,6 +5,7 @@ package com.googlecode.flickrjandroid.photosets;
 
 import java.io.Serializable;
 
+import java.util.Date;
 import com.googlecode.flickrjandroid.people.User;
 import com.googlecode.flickrjandroid.photos.Photo;
 import com.googlecode.flickrjandroid.photos.PhotoList;
@@ -29,6 +30,7 @@ public class Photoset implements Serializable {
     private String title;
     private String description;
     private PhotoList photoList;
+    private Date lastUpdate;
 
     public Photoset() {
     	super();
@@ -54,6 +56,16 @@ public class Photoset implements Serializable {
         } else {
             return url;
         }
+    }
+
+    public Date getLastUpdate() {
+        return lastUpdate;
+    }
+
+    public void setLastUpdate(String lastUpdateStr) {
+        if (lastUpdateStr == null || "".equals(lastUpdateStr)) return;
+        long unixTime = Long.parseLong(lastUpdateStr);
+        lastUpdate = new Date(unixTime * 1000L);
     }
 
     public void setUrl(String url) {

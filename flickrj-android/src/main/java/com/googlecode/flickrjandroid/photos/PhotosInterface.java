@@ -554,15 +554,18 @@ public class PhotosInterface {
      * @throws FlickrException
      * @throws JSONException 
      */
-    public PhotoList getNotInSet(int perPage, int page) throws IOException, FlickrException, JSONException {
+    public PhotoList getNotInSet(int perPage, int page, Date minUploadDate, Set<String> extras) throws IOException, FlickrException, JSONException {
         List<Parameter> parameters = new ArrayList<Parameter>();
         parameters.add(new Parameter("method", PhotosInterface.METHOD_GET_NOT_IN_SET));
         parameters.add(new Parameter(OAuthInterface.PARAM_OAUTH_CONSUMER_KEY, apiKey));
 
+        if (minUploadDate != null) {
+            parameters.add(new Parameter("min_upload_date", minUploadDate.getTime() / 1000L));
+        }
+
         RequestContext requestContext = RequestContext.getRequestContext();
 
-        List<String> extras = requestContext.getExtras();
-        if (extras.size() > 0) {
+        if (extras != null && extras.size() > 0) {
             parameters.add(new Parameter("extras", StringUtilities.join(extras, ",")));
         }
 

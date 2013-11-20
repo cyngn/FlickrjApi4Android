@@ -337,6 +337,10 @@ public class PhotosetsInterface {
 		Photoset photoset = new Photoset();
 		photoset.setId(photosetElement.getString("id"));
 
+		if (photosetElement.has("date_update")) {
+                    photoset.setLastUpdate(photosetElement.getString("date_update"));
+                }
+
 		if (photosetElement.has("owner")) {
 			User owner = new User();
 			owner.setId(photosetElement.getString("owner"));
