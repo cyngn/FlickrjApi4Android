@@ -695,6 +695,7 @@ public class PhotosInterface {
         parameters.add(new Parameter("photo_id", photoId));
 
         if (sign) {
+            parameters.add(new Parameter(OAuthInterface.PARAM_OAUTH_CONSUMER_KEY, apiKey));
             OAuthUtils.addOAuthToken(parameters);
         } else {
             parameters.add(new Parameter("api_key", apiKey));
