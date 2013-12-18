@@ -62,6 +62,7 @@ public class Photo implements Serializable {
     private Size large1600Size;
     private Size large2048Size;
     private Size originalSize;
+    private Collection<Size> mSizes;
 
     private String id;
     private User owner;
@@ -769,6 +770,10 @@ public class Photo implements Serializable {
         this.originalHeight = originalHeight;
     }
 
+    public Collection<Size> getSizes() {
+        return mSizes;
+    }
+
     /**
      * Set sizes to override the generated URLs of the different sizes.
      *
@@ -776,6 +781,7 @@ public class Photo implements Serializable {
      * @see com.googlecode.flickrjandroid.photos.PhotosInterface#getSizes(String)
      */
     public void setSizes(Collection<Size> sizes) {
+        mSizes = sizes;
         Iterator<Size> it = sizes.iterator();
         while (it.hasNext()) {
             Size size = (Size) it.next();
